@@ -1,0 +1,23 @@
+import type { ElementTagName, WorkerDOMRef } from "./worker-dom-types.js";
+declare const dom: {
+    create: (tagName: ElementTagName | ElementTagName[]) => Promise<WorkerDOMRef[]>;
+    query: (parentRef: WorkerDOMRef, selector: string) => Promise<WorkerDOMRef | null>;
+    queryAll: (parentRef: WorkerDOMRef, selector: string) => Promise<WorkerDOMRef[]>;
+    childNodes: (ref: WorkerDOMRef) => Promise<WorkerDOMRef[]>;
+    children: (ref: WorkerDOMRef) => Promise<WorkerDOMRef[]>;
+    innerHTML: (ref: WorkerDOMRef, text?: string) => Promise<string>;
+    innerText: (ref: WorkerDOMRef, text?: string) => Promise<string>;
+    textContent: (ref: WorkerDOMRef, text?: string) => Promise<string>;
+    hasAttribute: (ref: WorkerDOMRef, attribute: string) => Promise<boolean>;
+    getAttribute: (ref: WorkerDOMRef, attribute: string) => Promise<string | null>;
+    getAttributes: (ref: WorkerDOMRef, attributes: string[]) => Promise<Record<string, string | null>>;
+    setAttribute: (ref: WorkerDOMRef, attribute: string, value: string) => Promise<void>;
+    setAttributes: (ref: WorkerDOMRef, attributes: Record<string, string | null>) => Promise<void>;
+    removeAttribute: (ref: WorkerDOMRef, attribute: string) => Promise<void>;
+    removeAttributes: (ref: WorkerDOMRef, attributes: string[]) => Promise<void>;
+    getStyle: (ref: WorkerDOMRef, computed?: boolean) => Promise<Record<string, string>>;
+    setStyle: (ref: WorkerDOMRef, declaration: Record<string, string>) => Promise<void>;
+    append: (ref: WorkerDOMRef, ...children: WorkerDOMRef[]) => Promise<void>;
+    appendChild: (ref: WorkerDOMRef, childRef: WorkerDOMRef) => Promise<void>;
+};
+export default dom;

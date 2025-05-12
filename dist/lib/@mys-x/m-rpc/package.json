@@ -1,0 +1,42 @@
+{
+  "name": "@mys-x/m-rpc",
+  "version": "0.12.2",
+  "description": "A message based RPC library.",
+  "type": "module",
+  "author": "mys1024",
+  "license": "MIT",
+  "homepage": "https://github.com/mys1024/m-rpc#readme",
+  "repository": "https://github.com/mys1024/m-rpc.git",
+  "keywords": [
+    "deno",
+    "message",
+    "RPC",
+    "WebSocket",
+    "MessagePort",
+    "function",
+    "call"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/main.js",
+  "module": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs",
+      "types": "./dist/main.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@okikio/transferables": "npm:@jsr/okikio__transferables@^1.0.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "clean": "node scripts/clean.js",
+    "build": "pnpm run prepare && tsup src/main.ts --format cjs,esm --dts",
+    "build:clean": "pnpm run build && pnpm run clean"
+  }
+}

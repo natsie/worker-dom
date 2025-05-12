@@ -1,0 +1,28 @@
+{
+  "name": "worker-dom",
+  "version": "0.0.0-alpha",
+  "description": "An interface for accessing the DOM from web workers.",
+  "author": "Oghenevwegba Obire",
+  "license": "MIT OR Apache-2.0",
+  "type": "module",
+  "main": "node-main.js",
+  "scripts": {
+    "test": "mocha",
+    "dev": "node npm-scripts/dev.js"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "chai": "^5.2.0",
+    "mocha": "^11.2.2",
+    "typescript": "^5.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natsie/worker-dom.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/natsie/worker-dom/issues"
+  },
+  "homepage": "https://github.com/natsie/worker-dom#readme"
+}
