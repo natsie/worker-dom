@@ -1,6 +1,7 @@
 import { MRpc } from "./lib/@mys-x/m-rpc/dist/main.js";
 const commChannel = new MRpc(self);
 const dom = {
+    getRoot: () => commChannel.callRemoteFn("getRoot", []),
     create: (tagName) => {
         return commChannel.callRemoteFn("create", [tagName]);
     },
@@ -52,8 +53,8 @@ const dom = {
     setStyle: (ref, declaration) => {
         return commChannel.callRemoteFn("setStyle", [ref, declaration]);
     },
-    append: (ref, ...children) => {
-        return commChannel.callRemoteFn("append", [ref, ...children]);
+    append: (ref, children) => {
+        return commChannel.callRemoteFn("append", [ref, children]);
     },
     appendChild: (ref, childRef) => {
         return commChannel.callRemoteFn("appendChild", [ref, childRef]);

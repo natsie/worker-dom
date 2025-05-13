@@ -2,7 +2,7 @@ type DOMObject = HTMLElement | SVGElement | Element | DocumentFragment | Node;
 type ElementTagName = keyof HTMLElementTagNameMap | (string & {});
 type WorkerDOMRef = number;
 type WorkerDOMObject = DOMObject;
-type WorkerDOMMethod = "create" | "frag" | "query" | "queryAll" | "childNodes" | "children" | "innerHTML" | "innerText" | "textContent" | "hasAttribute" | "getAttribute" | "getAttributes" | "setAttribute" | "setAttributes" | "removeAttribute" | "removeAttributes" | "getStyle" | "setStyle" | "append" | "appendChild";
+type WorkerDOMMethod = "getRoot" | "create" | "frag" | "query" | "queryAll" | "childNodes" | "children" | "innerHTML" | "innerText" | "textContent" | "hasAttribute" | "getAttribute" | "getAttributes" | "setAttribute" | "setAttributes" | "removeAttribute" | "removeAttributes" | "getStyle" | "setStyle" | "append" | "appendChild";
 interface WorkerDOMDefaultConfig {
     allowStyling: boolean;
     allowUnknown: boolean;

@@ -1,5 +1,6 @@
 import type { ElementTagName, WorkerDOMRef } from "./worker-dom-types.js";
 declare const dom: {
+    getRoot: () => Promise<WorkerDOMRef>;
     create: (tagName: ElementTagName | ElementTagName[]) => Promise<WorkerDOMRef[]>;
     query: (parentRef: WorkerDOMRef, selector: string) => Promise<WorkerDOMRef | null>;
     queryAll: (parentRef: WorkerDOMRef, selector: string) => Promise<WorkerDOMRef[]>;
@@ -17,7 +18,7 @@ declare const dom: {
     removeAttributes: (ref: WorkerDOMRef, attributes: string[]) => Promise<void>;
     getStyle: (ref: WorkerDOMRef, computed?: boolean) => Promise<Record<string, string>>;
     setStyle: (ref: WorkerDOMRef, declaration: Record<string, string>) => Promise<void>;
-    append: (ref: WorkerDOMRef, ...children: WorkerDOMRef[]) => Promise<void>;
+    append: (ref: WorkerDOMRef, children: WorkerDOMRef[]) => Promise<void>;
     appendChild: (ref: WorkerDOMRef, childRef: WorkerDOMRef) => Promise<void>;
 };
 export default dom;

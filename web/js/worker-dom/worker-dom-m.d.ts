@@ -14,6 +14,7 @@ declare class WorkerDOM {
         root?: Element;
         config?: Partial<WorkerDOMDefaultConfig>;
     });
+    getRoot(): WorkerDOMRef;
     create(tagName: ElementTagName | ElementTagName[]): WorkerDOMRef[];
     frag(): WorkerDOMRef;
     query(parentRef: WorkerDOMRef, selector: string): WorkerDOMRef | null;
@@ -32,7 +33,7 @@ declare class WorkerDOM {
     removeAttributes(ref: WorkerDOMRef, attributes: string[]): void;
     getStyle(ref: WorkerDOMRef, computed?: boolean): Record<string, string>;
     setStyle(ref: WorkerDOMRef, declaration: Record<string, string>): void;
-    append(ref: WorkerDOMRef, ...children: (WorkerDOMRef | string)[]): void;
+    append(ref: WorkerDOMRef, children: (WorkerDOMRef | string)[]): void;
     appendChild(ref: WorkerDOMRef, childRef: WorkerDOMRef): void;
 }
 export { WorkerDOM, WorkerDOM as default };

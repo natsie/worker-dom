@@ -9,10 +9,11 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
     return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
 };
-var _WorkerDOM_instances, _WorkerDOM_id, _WorkerDOM_uuid, _WorkerDOM_initialiseConfig, _WorkerDOM_isValidAttributeName, _WorkerDOM_isAccessibleDOMObject, _WorkerDOM_referenceTo, _WorkerDOM_setRef, _WorkerDOM_setupCommunications;
+var _WorkerDOM_instances, _WorkerDOM_id, _WorkerDOM_uuid, _WorkerDOM_validateInitialisers, _WorkerDOM_initialiseConfig, _WorkerDOM_isValidAttributeName, _WorkerDOM_isAccessibleDOMObject, _WorkerDOM_referenceTo, _WorkerDOM_setRef, _WorkerDOM_setupCommunications;
 import { MRpc } from "./lib/@mys-x/m-rpc/dist/main.js";
 import DOMPurify from "./lib/dom-purify/purify.es.mjs";
 const DOMMethods = [
+    "getRoot",
     "create",
     "frag",
     "query",
@@ -217,6 +218,7 @@ class WorkerDOM {
         _WorkerDOM_instances.add(this);
         _WorkerDOM_id.set(this, -1);
         _WorkerDOM_uuid.set(this, crypto.randomUUID());
+        __classPrivateFieldGet(this, _WorkerDOM_instances, "m", _WorkerDOM_validateInitialisers).call(this, worker, root, config);
         this.config = WorkerDOM.defaultConfig;
         this.worker = worker;
         this.refs = new Map();
@@ -229,6 +231,9 @@ class WorkerDOM {
         __classPrivateFieldGet(this, _WorkerDOM_instances, "m", _WorkerDOM_referenceTo).call(this, _root);
         __classPrivateFieldGet(this, _WorkerDOM_instances, "m", _WorkerDOM_setupCommunications).call(this);
         __classPrivateFieldGet(this, _WorkerDOM_instances, "m", _WorkerDOM_initialiseConfig).call(this, config);
+    }
+    getRoot() {
+        return __classPrivateFieldGet(this, _WorkerDOM_instances, "m", _WorkerDOM_referenceTo).call(this, this.root);
     }
     create(tagName) {
         var _a;
@@ -440,7 +445,7 @@ class WorkerDOM {
         for (const prop in declaration)
             style[prop] = declaration[prop];
     }
-    append(ref, ...children) {
+    append(ref, children) {
         const target = this.refs.get(ref);
         if (!(target instanceof Element || target instanceof DocumentFragment)) {
             throw new TypeError("`ref` did not refer to an Element or DocumentFragment instance.");
@@ -475,7 +480,14 @@ class WorkerDOM {
         target.appendChild(child);
     }
 }
-_WorkerDOM_id = new WeakMap(), _WorkerDOM_uuid = new WeakMap(), _WorkerDOM_instances = new WeakSet(), _WorkerDOM_initialiseConfig = function _WorkerDOM_initialiseConfig(config) {
+_WorkerDOM_id = new WeakMap(), _WorkerDOM_uuid = new WeakMap(), _WorkerDOM_instances = new WeakSet(), _WorkerDOM_validateInitialisers = function _WorkerDOM_validateInitialisers(worker, root, config) {
+    if (!(worker instanceof Worker))
+        throw new TypeError("`worker` must be a Worker instance.");
+    if (root != null && !(root instanceof Element))
+        throw new TypeError("`root` must be an Element instance.");
+    if (config != null && typeof config !== "object")
+        throw new TypeError("`config` must be an object.");
+}, _WorkerDOM_initialiseConfig = function _WorkerDOM_initialiseConfig(config) {
     const { allowStyling, allowUnknown, allowCustomElements, allowedElements, forbiddenElements, forbiddenAttributes, forbiddenAttributesRgx, allowInnerHTML, } = config;
     if (allowStyling != null)
         this.config.allowStyling = !!allowStyling;
@@ -547,6 +559,7 @@ _WorkerDOM_id = new WeakMap(), _WorkerDOM_uuid = new WeakMap(), _WorkerDOM_insta
     const noop = () => { };
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     const obj = {
+        getRoot: noop,
         create: noop,
         frag: noop,
         query: noop,

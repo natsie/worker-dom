@@ -234,6 +234,8 @@ class WorkerDOM {
     root?: Element;
     config?: Partial<WorkerDOMDefaultConfig>;
   }) {
+    this.#validateInitialisers(worker, root, config);
+
     this.config = WorkerDOM.defaultConfig;
     this.worker = worker;
     this.refs = new Map();
@@ -247,6 +249,14 @@ class WorkerDOM {
     this.#referenceTo(_root);
     this.#setupCommunications();
     this.#initialiseConfig(config);
+  }
+
+  #validateInitialisers(worker: Worker, root?: Element, config?: Partial<WorkerDOMDefaultConfig>) {
+    if (!(worker instanceof Worker)) throw new TypeError("`worker` must be a Worker instance.");
+    if (root != null && !(root instanceof Element))
+      throw new TypeError("`root` must be an Element instance.");
+    if (config != null && typeof config !== "object")
+      throw new TypeError("`config` must be an object.");
   }
 
   #initialiseConfig(config: Partial<WorkerDOMDefaultConfig>) {
@@ -634,7 +644,7 @@ class WorkerDOM {
     for (const prop in declaration) style[prop] = declaration[prop];
   }
 
-  append(ref: WorkerDOMRef, ...children: (WorkerDOMRef | string)[]): void {
+  append(ref: WorkerDOMRef, children: (WorkerDOMRef | string)[]): void {
     const target = this.refs.get(ref) as Element | DocumentFragment;
     if (!(target instanceof Element || target instanceof DocumentFragment)) {
       throw new TypeError("`ref` did not refer to an Element or DocumentFragment instance.");

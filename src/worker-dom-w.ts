@@ -58,8 +58,8 @@ const dom = {
   setStyle: (ref: WorkerDOMRef, declaration: Record<string, string>): Promise<void> => {
     return commChannel.callRemoteFn("setStyle", [ref, declaration]);
   },
-  append: (ref: WorkerDOMRef, ...children: WorkerDOMRef[]): Promise<void> => {
-    return commChannel.callRemoteFn("append", [ref, ...children]);
+  append: (ref: WorkerDOMRef, children: WorkerDOMRef[]): Promise<void> => {
+    return commChannel.callRemoteFn("append", [ref, children]);
   },
   appendChild: (ref: WorkerDOMRef, childRef: WorkerDOMRef): Promise<void> => {
     return commChannel.callRemoteFn("appendChild", [ref, childRef]);
