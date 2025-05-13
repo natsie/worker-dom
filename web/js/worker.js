@@ -1,4 +1,5 @@
-import dom from "./worker-dom/worker-dom-w.js";
+import { workerThread } from "./worker-dom/wd.js";
+const dom = await workerThread();
 
 // Define styles for consistency and easy maintenance
 const styles = {
